@@ -59,3 +59,12 @@ input[type="checkbox"].hidden {
     margin-inline-start: 12px;
     margin-block-start: 4px;
 }
+
+/* SEARCH BAR */
+#search-bar {
+    width: 40%;
+}
+
+#search-icon {
+    margin-inline-end: 0.5rem;
+}
