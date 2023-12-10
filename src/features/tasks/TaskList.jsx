@@ -12,7 +12,6 @@ import "./styles.css";
 
 export const TaskList = () => {
     const tasks = useSelector(selectAllTasks);
-    console.log(tasks);
 
     return (
         <main id="task-list">

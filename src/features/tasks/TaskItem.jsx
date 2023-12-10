@@ -3,6 +3,8 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 
 // Redux
+import { useDispatch } from "react-redux";
+import { toggleTaskComplete } from "./taskSlice";
 
 // Components
 import { Col, FormCheck, FormControl, Stack } from "react-bootstrap";
@@ -12,9 +14,19 @@ import { IconButton } from "../../common/IconButton";
 import "./styles.css";
 
 export const TaskItem = ({ id, task, completed }) => {
+    const dispatch = useDispatch();
     const [editMode, setEditMode] = useState(false);
     const [editedTaskText, setEditedTaskText] = useState(task);
     const [errorMsg, setErrorMsg] = useState("");
+
+    const handleTaskCompleted = () => {
+        dispatch(
+            toggleTaskComplete({
+                id: id,
+                completed: !completed,
+            })
+        );
+    };
 
     return (
         <Stack direction="horizontal" className="task">
@@ -23,6 +35,7 @@ export const TaskItem = ({ id, task, completed }) => {
                 type="checkbox"
                 defaultChecked={completed}
                 id={id.toString()}
+                onChange={handleTaskCompleted}
             />
             {editMode ? (
                 <>
