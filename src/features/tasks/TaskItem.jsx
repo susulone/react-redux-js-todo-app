@@ -4,7 +4,11 @@ import PropTypes from "prop-types";
 
 // Redux
 import { useDispatch } from "react-redux";
-import { deleteTask, editTask, toggleTaskComplete } from "./taskSlice";
+import {
+    editTaskCompleted,
+    editTaskDescription,
+    deleteTaskById,
+} from "./taskSlice";
 
 // Components
 import { Col, FormCheck, FormControl, Stack } from "react-bootstrap";
@@ -13,14 +17,14 @@ import { IconButton } from "../../common/IconButton";
 // Styles
 import "./styles.css";
 
-export const TaskItem = ({ id, task, completed }) => {
+export const TaskItem = ({ id, task, completed, createdAt }) => {
     const dispatch = useDispatch();
     const [editMode, setEditMode] = useState(false);
     const [editedTaskText, setEditedTaskText] = useState(task);
 
     const handleTaskCompleted = () => {
         dispatch(
-            toggleTaskComplete({
+            editTaskCompleted({
                 id: id,
                 completed: !completed,
             })
@@ -29,7 +33,7 @@ export const TaskItem = ({ id, task, completed }) => {
 
     const handleTaskDelete = () => {
         dispatch(
-            deleteTask({
+            deleteTaskById({
                 id: id,
             })
         );
@@ -37,12 +41,9 @@ export const TaskItem = ({ id, task, completed }) => {
 
     const handleTaskEdit = () => {
         dispatch(
-            editTask({
-                editedTask: {
-                    id: id,
-                    task: editedTaskText,
-                    completed: completed,
-                },
+            editTaskDescription({
+                id: id,
+                task: editedTaskText,
             })
         );
     };
@@ -91,4 +92,5 @@ TaskItem.propTypes = {
     id: PropTypes.string.isRequired,
     task: PropTypes.string.isRequired,
     completed: PropTypes.bool.isRequired,
+    createdAt: PropTypes.string.isRequired,
 };
