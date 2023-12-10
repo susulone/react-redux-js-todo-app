@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 // Redux
 import { useDispatch } from "react-redux";
-import { deleteTask, toggleTaskComplete } from "./taskSlice";
+import { deleteTask, editTask, toggleTaskComplete } from "./taskSlice";
 
 // Components
 import { Col, FormCheck, FormControl, Stack } from "react-bootstrap";
@@ -35,13 +35,25 @@ export const TaskItem = ({ id, task, completed }) => {
         );
     };
 
+    const handleTaskEdit = () => {
+        dispatch(
+            editTask({
+                editedTask: {
+                    id: id,
+                    task: editedTaskText,
+                    completed: completed,
+                },
+            })
+        );
+    };
+
     return (
         <Stack direction="horizontal" className="task">
             <FormCheck
                 inline
                 type="checkbox"
                 defaultChecked={completed}
-                id={id.toString()}
+                id={id}
                 onChange={handleTaskCompleted}
             />
             {editMode ? (
@@ -49,12 +61,14 @@ export const TaskItem = ({ id, task, completed }) => {
                     <Stack>
                         <FormControl
                             value={editedTaskText}
+                            required
                             onChange={(e) => setEditedTaskText(e.target.value)}
                         />
                     </Stack>
                     <IconButton
                         iconName={"save"}
                         handleOnClick={() => {
+                            handleTaskEdit();
                             setEditMode(false);
                         }}
                     />
@@ -74,7 +88,7 @@ export const TaskItem = ({ id, task, completed }) => {
 };
 
 TaskItem.propTypes = {
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    id: PropTypes.string.isRequired,
     task: PropTypes.string.isRequired,
     completed: PropTypes.bool.isRequired,
 };

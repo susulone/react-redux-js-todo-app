@@ -3,32 +3,32 @@ import { createSlice, nanoid } from "@reduxjs/toolkit";
 const initialState = {
     tasks: [
         {
-            id: 1,
+            id: "1",
             task: "Buy potatoes",
             completed: false,
         },
         {
-            id: 2,
+            id: "2",
             task: "Make food",
             completed: false,
         },
         {
-            id: 3,
+            id: "3",
             task: "Exercise",
             completed: false,
         },
         {
-            id: 4,
+            id: "4",
             task: "Do the dishes",
             completed: false,
         },
         {
-            id: 5,
+            id: "5",
             task: "Floss the teeth",
             completed: false,
         },
         {
-            id: 6,
+            id: "6",
             task: "Play videogames",
             completed: true,
         },
