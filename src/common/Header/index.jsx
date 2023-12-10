@@ -1,4 +1,5 @@
 // Components
+import { SearchTask } from "../../features/tasks/SearchTask";
 import { Layers } from "react-feather";
 
 // Styles
@@ -11,6 +12,7 @@ export const Header = () => {
                 <Layers />
                 <h6>Taskify</h6>
             </section>
+            <SearchTask />
         </header>
     );
 };
