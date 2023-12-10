@@ -1,4 +1,5 @@
 // Components
+import { AddTask } from "../../features/tasks/AddTask";
 
 // Styles
 import "./styles.css";
@@ -19,6 +20,7 @@ export const Footer = () => {
 
     return (
         <footer className="footer">
+            <AddTask />
             <p id="footer-content">
                 Copyright <span>&copy; </span>
                 {projectLifeTime()} Taskify
