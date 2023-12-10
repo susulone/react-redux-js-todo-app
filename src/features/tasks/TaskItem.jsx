@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 // Redux
 import { useDispatch } from "react-redux";
-import { toggleTaskComplete } from "./taskSlice";
+import { deleteTask, toggleTaskComplete } from "./taskSlice";
 
 // Components
 import { Col, FormCheck, FormControl, Stack } from "react-bootstrap";
@@ -17,13 +17,20 @@ export const TaskItem = ({ id, task, completed }) => {
     const dispatch = useDispatch();
     const [editMode, setEditMode] = useState(false);
     const [editedTaskText, setEditedTaskText] = useState(task);
-    const [errorMsg, setErrorMsg] = useState("");
 
     const handleTaskCompleted = () => {
         dispatch(
             toggleTaskComplete({
                 id: id,
                 completed: !completed,
+            })
+        );
+    };
+
+    const handleTaskDelete = () => {
+        dispatch(
+            deleteTask({
+                id: id,
             })
         );
     };
@@ -40,12 +47,10 @@ export const TaskItem = ({ id, task, completed }) => {
             {editMode ? (
                 <>
                     <Stack>
-                        <FormControl value={editedTaskText} />
-                        {errorMsg ? (
-                            <section id="add-form-error">{errorMsg}</section>
-                        ) : (
-                            <></>
-                        )}
+                        <FormControl
+                            value={editedTaskText}
+                            onChange={(e) => setEditedTaskText(e.target.value)}
+                        />
                     </Stack>
                     <IconButton
                         iconName={"save"}
@@ -63,7 +68,7 @@ export const TaskItem = ({ id, task, completed }) => {
                     />
                 </>
             )}
-            <IconButton iconName={"delete"} />
+            <IconButton iconName={"delete"} handleOnClick={handleTaskDelete} />
         </Stack>
     );
 };
